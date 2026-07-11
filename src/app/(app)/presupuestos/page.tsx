@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { useApp } from "@/components/AppProvider";
+import { CategoryIcon } from "@/lib/icons";
 import { currentMonth, fmtMoney, monthLabel, monthRange } from "@/lib/format";
 import type { Budget, Expense } from "@/lib/types";
 
@@ -89,7 +90,7 @@ export default function PresupuestosPage() {
           return (
             <div key={c.id} className="p-4">
               <div className="flex items-center gap-3">
-                <span className="text-xl">{c.icon}</span>
+                <CategoryIcon icon={c.icon} />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium">{c.name}</p>
                   <p className="text-xs text-slate-400">
@@ -129,9 +130,9 @@ export default function PresupuestosPage() {
                       }
                     >
                       {spent > limit
-                        ? `⚠️ Superado por ${fmtMoney(spent - limit, household.currency)}`
+                        ? `Superado por ${fmtMoney(spent - limit, household.currency)}`
                         : pct >= 80
-                          ? `⚠️ Ya usaste el ${Math.round(pct)}%`
+                          ? `Ya usaste el ${Math.round(pct)}%`
                           : `${Math.round(pct)}% usado`}
                     </span>
                     <span className="text-slate-400">

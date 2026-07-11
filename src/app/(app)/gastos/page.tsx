@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { useApp } from "@/components/AppProvider";
+import { CategoryIcon } from "@/lib/icons";
 import {
   currentMonth,
   fmtDate,
@@ -241,7 +242,7 @@ export default function GastosPage() {
                     : "text-slate-400"
                 }`}
               >
-                💑 Compartido
+                Compartido
               </button>
               <button
                 type="button"
@@ -252,7 +253,7 @@ export default function GastosPage() {
                     : "text-slate-400"
                 }`}
               >
-                👤 Personal
+                Personal
               </button>
             </div>
             <p className="text-xs text-slate-400 mt-1">
@@ -302,7 +303,7 @@ export default function GastosPage() {
             const cat = categories.find((c) => c.id === e.category_id);
             return (
               <div key={e.id} className="flex items-center gap-3 px-4 py-3">
-                <span className="text-xl">{cat?.icon ?? "🧾"}</span>
+                <CategoryIcon icon={cat?.icon} />
                 <button
                   onClick={() => startEdit(e)}
                   className="flex-1 min-w-0 text-left"
@@ -312,7 +313,7 @@ export default function GastosPage() {
                   </p>
                   <p className="text-xs text-slate-400">
                     {fmtDate(e.date)} · {nameOf(e.paid_by)} ·{" "}
-                    {e.scope === "shared" ? "💑 Compartido" : "👤 Personal"}
+                    {e.scope === "shared" ? "Compartido" : "Personal"}
                   </p>
                 </button>
                 <span className="text-sm font-semibold whitespace-nowrap">

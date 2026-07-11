@@ -9,6 +9,7 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
+import LogoMark from "@/components/Logo";
 import type { Category, Household, Profile } from "@/lib/types";
 
 type AppData = {
@@ -95,7 +96,9 @@ export default function AppProvider({
     return (
       <main className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="text-4xl animate-bounce">💰</div>
+          <div className="flex justify-center animate-pulse">
+            <LogoMark size={48} />
+          </div>
           <p className="text-slate-400 text-sm mt-3">Cargando...</p>
         </div>
       </main>

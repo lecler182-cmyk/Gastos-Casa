@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { useApp } from "@/components/AppProvider";
+import { CategoryIcon } from "@/lib/icons";
 import {
   currentMonth,
   fmtDate,
@@ -204,7 +205,7 @@ export default function IngresosPage() {
         ) : (
           incomes.map((i) => (
             <div key={i.id} className="flex items-center gap-3 px-4 py-3">
-              <span className="text-xl">💵</span>
+              <CategoryIcon icon="💵" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">
                   {i.source || "Ingreso"}

@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabase/client";
 import { useApp } from "@/components/AppProvider";
 import { computeBalance } from "@/lib/balance";
 import { chartColor } from "@/lib/colors";
+import { CategoryIcon } from "@/lib/icons";
 import {
   currentMonth,
   fmtDate,
@@ -97,7 +98,7 @@ export default function DashboardPage() {
       .map(([catId, value]) => {
         const cat = categories.find((c) => c.id === catId);
         return {
-          name: cat ? `${cat.icon} ${cat.name}` : "🧾 Sin categoría",
+          name: cat ? cat.name : "Sin categoría",
           value: Math.round(value * 100) / 100,
           color: chartColor(cat?.color),
         };
@@ -120,7 +121,7 @@ export default function DashboardPage() {
             .reduce((s, e) => s + Number(e.amount), 0);
           return {
             id: b.id,
-            label: cat ? `${cat.icon} ${cat.name}` : "Sin categoría",
+            label: cat ? cat.name : "Sin categoría",
             spent,
             limit: Number(b.monthly_limit),
             pct: Math.min(100, (spent / Number(b.monthly_limit)) * 100),
@@ -213,7 +214,7 @@ export default function DashboardPage() {
         style={{ background: CARD }}
       >
         <h2 className="font-semibold text-sm text-slate-200 mb-2">
-          💑 Cuentas en pareja
+          Cuentas en pareja
         </h2>
         {members.length < 2 ? (
           <p className="text-sm text-slate-400">
@@ -243,7 +244,7 @@ export default function DashboardPage() {
             </button>
           </div>
         ) : (
-          <p className="text-sm text-slate-400">Están a mano 🎉</p>
+          <p className="text-sm text-slate-400">Están a mano.</p>
         )}
       </div>
 
@@ -257,7 +258,7 @@ export default function DashboardPage() {
         </h2>
         {pieData.length === 0 ? (
           <p className="text-sm text-slate-500 py-6 text-center">
-            Sin gastos este mes. ¡Registra el primero desde 💸 Gastos!
+            Sin gastos este mes.
           </p>
         ) : (
           <div className="flex flex-col sm:flex-row items-center gap-5">
@@ -332,7 +333,7 @@ export default function DashboardPage() {
           style={{ background: CARD }}
         >
           <h2 className="font-semibold text-sm text-slate-200 mb-3">
-            🎯 Presupuestos del mes
+            Presupuestos del mes
           </h2>
           <div className="space-y-3">
             {budgetRows.map((b) => (
@@ -350,7 +351,7 @@ export default function DashboardPage() {
                   >
                     {fmtMoney(b.spent, household.currency)} /{" "}
                     {fmtMoney(b.limit, household.currency)}
-                    {b.spent > b.limit && " ⚠️"}
+                    
                   </span>
                 </div>
                 <div className="h-2 bg-white/10 rounded-full overflow-hidden">
@@ -378,7 +379,7 @@ export default function DashboardPage() {
       >
         <div className="flex items-center justify-between mb-3">
           <h2 className="font-semibold text-sm text-slate-200">
-            🕐 Últimos movimientos
+            Últimos movimientos
           </h2>
           <Link
             href="/gastos"
@@ -389,7 +390,7 @@ export default function DashboardPage() {
         </div>
         {expenses.length === 0 ? (
           <p className="text-sm text-slate-500 py-4 text-center">
-            Nada por aquí todavía.
+            Sin movimientos todavía.
           </p>
         ) : (
           <ul className="divide-y divide-white/5">
@@ -397,9 +398,7 @@ export default function DashboardPage() {
               const cat = categories.find((c) => c.id === e.category_id);
               return (
                 <li key={e.id} className="flex items-center gap-3 py-2.5">
-                  <span className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-lg">
-                    {cat?.icon ?? "🧾"}
-                  </span>
+                  <CategoryIcon icon={cat?.icon} />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-white truncate">
                       {e.note || cat?.name || "Gasto"}

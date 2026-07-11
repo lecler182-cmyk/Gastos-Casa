@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { useApp } from "@/components/AppProvider";
+import { CategoryIcon } from "@/lib/icons";
+import { User } from "lucide-react";
 import { firstName } from "@/lib/format";
 
 const CURRENCIES = ["EUR", "USD", "ARS", "MXN", "CLP", "COP", "UYU", "GBP"];
@@ -89,7 +91,7 @@ export default function AjustesPage() {
 
       {/* Hogar */}
       <section className="bg-[#151923] rounded-2xl border border-white/5 p-5 space-y-4">
-        <h2 className="font-semibold text-sm text-slate-200">🏡 Hogar</h2>
+        <h2 className="font-semibold text-sm text-slate-200">Hogar</h2>
         <div>
           <label className="text-xs text-slate-400 block mb-1">Nombre</label>
           <input
@@ -141,7 +143,7 @@ export default function AjustesPage() {
 
       {/* Miembros / invitación */}
       <section className="bg-[#151923] rounded-2xl border border-white/5 p-5 space-y-3">
-        <h2 className="font-semibold text-sm text-slate-200">👥 Miembros</h2>
+        <h2 className="font-semibold text-sm text-slate-200">Miembros</h2>
         <ul className="space-y-2">
           {members.map((m) => (
             <li key={m.id} className="flex items-center gap-3 text-sm">
@@ -153,8 +155,8 @@ export default function AjustesPage() {
                   className="w-8 h-8 rounded-full"
                 />
               ) : (
-                <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-                  👤
+                <span className="w-8 h-8 rounded-full bg-white/10 text-slate-300 flex items-center justify-center">
+                  <User size={15} />
                 </span>
               )}
               <span className="font-medium">
@@ -190,16 +192,19 @@ export default function AjustesPage() {
 
       {/* Categorías */}
       <section className="bg-[#151923] rounded-2xl border border-white/5 p-5 space-y-3">
-        <h2 className="font-semibold text-sm text-slate-200">🏷️ Categorías</h2>
+        <h2 className="font-semibold text-sm text-slate-200">Categorías</h2>
         <ul className="flex flex-wrap gap-2">
           {categories.map((c) => (
             <li
               key={c.id}
               className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full pl-3 pr-1.5 py-1 text-sm"
             >
-              <span>
-                {c.icon} {c.name}
-              </span>
+              <CategoryIcon
+                icon={c.icon}
+                size={13}
+                className="w-5 h-5 text-slate-400 flex items-center justify-center"
+              />
+              <span>{c.name}</span>
               <button
                 onClick={() => removeCategory(c.id)}
                 className="text-slate-300 hover:text-red-400 w-5 h-5 flex items-center justify-center"

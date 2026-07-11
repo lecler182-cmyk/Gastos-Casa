@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabase/client";
+import LogoMark from "@/components/Logo";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
@@ -17,7 +18,9 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-[#131A2C] to-[#0A0D14]">
       <div className="w-full max-w-sm bg-[#151923] border border-white/10 rounded-2xl shadow-2xl p-8 text-center">
-        <div className="text-5xl mb-3">💰</div>
+        <div className="flex justify-center mb-4">
+          <LogoMark size={56} />
+        </div>
         <h1 className="text-2xl font-bold text-white">Gastos Casa</h1>
         <p className="text-slate-400 mt-2 mb-8 text-sm">
           Gastos diarios, presupuestos y cuentas compartidas en pareja

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { useApp } from "@/components/AppProvider";
+import { CategoryIcon } from "@/lib/icons";
 import { fmtMoney, firstName } from "@/lib/format";
 import type { RecurringExpense, Scope } from "@/lib/types";
 
@@ -190,7 +191,7 @@ export default function RecurrentesPage() {
                   : "text-slate-400"
               }`}
             >
-              💑 Compartido
+              Compartido
             </button>
             <button
               type="button"
@@ -201,7 +202,7 @@ export default function RecurrentesPage() {
                   : "text-slate-400"
               }`}
             >
-              👤 Personal
+              Personal
             </button>
           </div>
 
@@ -238,7 +239,7 @@ export default function RecurrentesPage() {
       <div className="bg-[#151923] rounded-2xl border border-white/5 divide-y divide-white/5">
         {items.length === 0 ? (
           <p className="text-sm text-slate-400 py-10 text-center">
-            Sin gastos recurrentes. Agrega el alquiler o tus suscripciones 📺
+            Sin gastos recurrentes. Añade el alquiler o vuestras suscripciones.
           </p>
         ) : (
           items.map((r) => {
@@ -250,14 +251,14 @@ export default function RecurrentesPage() {
                   r.active ? "" : "opacity-50"
                 }`}
               >
-                <span className="text-xl">{cat?.icon ?? "🔁"}</span>
+                <CategoryIcon icon={cat?.icon ?? "🔁"} />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">
                     {r.note || cat?.name || "Recurrente"}
                   </p>
                   <p className="text-xs text-slate-400">
                     Día {r.day_of_month} de cada mes · {nameOf(r.paid_by)} ·{" "}
-                    {r.scope === "shared" ? "💑 Compartido" : "👤 Personal"}
+                    {r.scope === "shared" ? "Compartido" : "Personal"}
                   </p>
                 </div>
                 <span className="text-sm font-semibold whitespace-nowrap">
