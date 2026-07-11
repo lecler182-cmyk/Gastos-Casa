@@ -90,7 +90,7 @@ export default function AjustesPage() {
       <h1 className="text-xl md:text-2xl font-bold">Ajustes</h1>
 
       {/* Hogar */}
-      <section className="bg-[#151923] rounded-2xl border border-white/5 p-5 space-y-4">
+      <section className="bg-[#151923] rounded-3xl border border-white/5 p-6 space-y-4">
         <h2 className="font-semibold text-sm text-slate-200">Hogar</h2>
         <div>
           <label className="text-xs text-slate-400 block mb-1">Nombre</label>
@@ -135,14 +135,14 @@ export default function AjustesPage() {
         <button
           onClick={saveHousehold}
           disabled={savingHouse}
-          className="bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium rounded-xl px-5 py-2 transition disabled:opacity-60"
+          className="bg-white hover:bg-slate-200 text-slate-900 text-sm font-semibold rounded-full px-5 py-2 transition disabled:opacity-60"
         >
           {savingHouse ? "Guardando..." : "Guardar cambios"}
         </button>
       </section>
 
       {/* Miembros / invitación */}
-      <section className="bg-[#151923] rounded-2xl border border-white/5 p-5 space-y-3">
+      <section className="bg-[#151923] rounded-3xl border border-white/5 p-6 space-y-3">
         <h2 className="font-semibold text-sm text-slate-200">Miembros</h2>
         <ul className="space-y-2">
           {members.map((m) => (
@@ -191,7 +191,7 @@ export default function AjustesPage() {
       </section>
 
       {/* Categorías */}
-      <section className="bg-[#151923] rounded-2xl border border-white/5 p-5 space-y-3">
+      <section className="bg-[#151923] rounded-3xl border border-white/5 p-6 space-y-3">
         <h2 className="font-semibold text-sm text-slate-200">Categorías</h2>
         <ul className="flex flex-wrap gap-2">
           {categories.map((c) => (
@@ -231,7 +231,7 @@ export default function AjustesPage() {
           <button
             type="submit"
             disabled={savingCat}
-            className="bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium rounded-xl px-4 transition disabled:opacity-60"
+            className="bg-white hover:bg-slate-200 text-slate-900 text-sm font-semibold rounded-full px-4 transition disabled:opacity-60"
           >
             Añadir
           </button>
@@ -239,7 +239,7 @@ export default function AjustesPage() {
       </section>
 
       {/* Sesión */}
-      <section className="bg-[#151923] rounded-2xl border border-white/5 p-5">
+      <section className="bg-[#151923] rounded-3xl border border-white/5 p-6">
         <button
           onClick={signOut}
           className="text-sm font-medium text-red-400 hover:underline"

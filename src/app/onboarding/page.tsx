@@ -31,7 +31,7 @@ export default function OnboardingPage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-[#131A2C] to-[#0A0D14]">
-      <div className="w-full max-w-md bg-[#151923] border border-white/10 rounded-2xl shadow-2xl p-8">
+      <div className="w-full max-w-md bg-[#151923] border border-white/10 rounded-3xl shadow-2xl p-8">
         <h1 className="text-xl font-bold text-white text-center">
           Configura vuestro hogar
         </h1>
@@ -79,7 +79,7 @@ export default function OnboardingPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-500 hover:bg-indigo-400 text-white font-medium rounded-xl py-3 transition disabled:opacity-60"
+            className="w-full bg-white hover:bg-slate-200 text-slate-900 font-semibold rounded-full py-3 transition disabled:opacity-60"
           >
             {loading
               ? "Un momento..."

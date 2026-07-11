@@ -17,7 +17,7 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-[#131A2C] to-[#0A0D14]">
-      <div className="w-full max-w-sm bg-[#151923] border border-white/10 rounded-2xl shadow-2xl p-8 text-center">
+      <div className="w-full max-w-sm bg-[#151923] border border-white/10 rounded-3xl shadow-2xl p-8 text-center">
         <div className="flex justify-center mb-4">
           <LogoMark size={56} />
         </div>

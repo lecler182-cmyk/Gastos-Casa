@@ -112,7 +112,7 @@ export default function IngresosPage() {
         </p>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium rounded-xl px-4 py-2 transition"
+          className="bg-white hover:bg-slate-200 text-slate-900 text-sm font-semibold rounded-full px-4 py-2 transition"
         >
           + Nuevo ingreso
         </button>
@@ -121,7 +121,7 @@ export default function IngresosPage() {
       {showForm && (
         <form
           onSubmit={save}
-          className="bg-[#151923] rounded-2xl border border-indigo-400/30 p-5 space-y-4"
+          className="bg-[#151923] rounded-3xl border border-white/10 p-6 space-y-4"
         >
           <h2 className="font-semibold text-sm">Nuevo ingreso</h2>
           <div className="grid grid-cols-2 gap-3">
@@ -189,7 +189,7 @@ export default function IngresosPage() {
             <button
               type="submit"
               disabled={saving}
-              className="bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium rounded-xl px-5 py-2 transition disabled:opacity-60"
+              className="bg-white hover:bg-slate-200 text-slate-900 text-sm font-semibold rounded-full px-5 py-2 transition disabled:opacity-60"
             >
               {saving ? "Guardando..." : "Guardar"}
             </button>
@@ -197,7 +197,7 @@ export default function IngresosPage() {
         </form>
       )}
 
-      <div className="bg-[#151923] rounded-2xl border border-white/5 divide-y divide-white/5">
+      <div className="bg-[#151923] rounded-3xl border border-white/5 divide-y divide-white/5">
         {incomes.length === 0 ? (
           <p className="text-sm text-slate-400 py-10 text-center">
             Sin ingresos en {monthLabel(month).toLowerCase()}.

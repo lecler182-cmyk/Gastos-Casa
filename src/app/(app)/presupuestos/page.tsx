@@ -81,7 +81,7 @@ export default function PresupuestosPage() {
         </p>
       </div>
 
-      <div className="bg-[#151923] rounded-2xl border border-white/5 divide-y divide-white/5">
+      <div className="bg-[#151923] rounded-3xl border border-white/5 divide-y divide-white/5">
         {categories.map((c) => {
           const budget = budgets.find((b) => b.category_id === c.id);
           const spent = spentOf(c.id);

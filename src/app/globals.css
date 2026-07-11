@@ -5,12 +5,22 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
 }
 
 body {
   background: #0a0d14;
   color: #f1f5f9;
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* Titulares y cifras grandes: fuente display estilo fintech */
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--font-inter-tight), var(--font-inter), sans-serif;
+  letter-spacing: -0.02em;
 }
 
 input,
