@@ -73,14 +73,14 @@ export default function PresupuestosPage() {
     <div className="space-y-5">
       <div>
         <h1 className="text-xl md:text-2xl font-bold">Presupuestos</h1>
-        <p className="text-sm text-slate-500 mt-1">
+        <p className="text-sm text-slate-400 mt-1">
           Define un límite mensual por categoría. Te avisamos cuando llegues al
           80% y cuando te pases. Deja el campo vacío y guarda para quitar un
           presupuesto.
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100">
+      <div className="bg-[#151923] rounded-2xl border border-white/5 divide-y divide-white/5">
         {categories.map((c) => {
           const budget = budgets.find((b) => b.category_id === c.id);
           const spent = spentOf(c.id);
@@ -106,12 +106,12 @@ export default function PresupuestosPage() {
                   onChange={(e) =>
                     setDrafts({ ...drafts, [c.id]: e.target.value })
                   }
-                  className="w-28 border border-slate-300 rounded-xl px-3 py-2 text-sm text-right"
+                  className="w-28 border border-white/10 rounded-xl px-3 py-2 text-sm text-right"
                 />
                 <button
                   onClick={() => save(c.id)}
                   disabled={savingId === c.id}
-                  className="text-sm font-medium text-emerald-600 hover:text-emerald-700 px-2 disabled:opacity-50"
+                  className="text-sm font-medium text-indigo-300 hover:text-indigo-200 px-2 disabled:opacity-50"
                 >
                   {savingId === c.id ? "..." : "Guardar"}
                 </button>
@@ -122,9 +122,9 @@ export default function PresupuestosPage() {
                     <span
                       className={
                         spent > limit
-                          ? "text-red-600 font-semibold"
+                          ? "text-red-400 font-semibold"
                           : pct >= 80
-                            ? "text-amber-600 font-medium"
+                            ? "text-amber-400 font-medium"
                             : "text-slate-400"
                       }
                     >
@@ -138,14 +138,14 @@ export default function PresupuestosPage() {
                       {fmtMoney(limit, household.currency)}
                     </span>
                   </div>
-                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                     <div
                       className={`h-full rounded-full ${
                         spent > limit
                           ? "bg-red-500"
                           : pct >= 80
                             ? "bg-amber-400"
-                            : "bg-emerald-500"
+                            : "bg-emerald-400"
                       }`}
                       style={{ width: `${pct}%` }}
                     />

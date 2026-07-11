@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -9,12 +9,23 @@
 }
 
 body {
-  background: #f8fafc;
-  color: #0f172a;
+  background: #0a0d14;
+  color: #f1f5f9;
 }
 
 input,
 select,
 textarea {
-  background: #ffffff;
+  background: #0e1118;
+  color: #f1f5f9;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #64748b;
+}
+
+/* Números tabulares para que los montos queden alineados, estilo fintech */
+.tnum {
+  font-variant-numeric: tabular-nums;
 }

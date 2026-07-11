@@ -15,17 +15,17 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-emerald-50 to-slate-50">
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-8 text-center">
+    <main className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-[#131A2C] to-[#0A0D14]">
+      <div className="w-full max-w-sm bg-[#151923] border border-white/10 rounded-2xl shadow-2xl p-8 text-center">
         <div className="text-5xl mb-3">💰</div>
-        <h1 className="text-2xl font-bold text-slate-900">Gastos Casa</h1>
-        <p className="text-slate-500 mt-2 mb-8 text-sm">
+        <h1 className="text-2xl font-bold text-white">Gastos Casa</h1>
+        <p className="text-slate-400 mt-2 mb-8 text-sm">
           Gastos diarios, presupuestos y cuentas compartidas en pareja
         </p>
         <button
           onClick={signInWithGoogle}
           disabled={loading}
-          className="w-full flex items-center justify-center gap-3 border border-slate-300 rounded-xl py-3 px-4 font-medium text-slate-700 hover:bg-slate-50 transition disabled:opacity-60"
+          className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-200 rounded-full py-3 px-4 font-semibold text-slate-900 transition disabled:opacity-60"
         >
           <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden>
             <path

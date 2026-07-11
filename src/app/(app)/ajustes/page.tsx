@@ -88,22 +88,22 @@ export default function AjustesPage() {
       <h1 className="text-xl md:text-2xl font-bold">Ajustes</h1>
 
       {/* Hogar */}
-      <section className="bg-white rounded-2xl border border-slate-200 p-5 space-y-4">
-        <h2 className="font-semibold text-sm text-slate-700">🏡 Hogar</h2>
+      <section className="bg-[#151923] rounded-2xl border border-white/5 p-5 space-y-4">
+        <h2 className="font-semibold text-sm text-slate-200">🏡 Hogar</h2>
         <div>
-          <label className="text-xs text-slate-500 block mb-1">Nombre</label>
+          <label className="text-xs text-slate-400 block mb-1">Nombre</label>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+            className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
           />
         </div>
         <div>
-          <label className="text-xs text-slate-500 block mb-1">Moneda</label>
+          <label className="text-xs text-slate-400 block mb-1">Moneda</label>
           <select
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
-            className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+            className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
           >
             {CURRENCIES.map((c) => (
               <option key={c} value={c}>
@@ -113,7 +113,7 @@ export default function AjustesPage() {
           </select>
         </div>
         <div>
-          <label className="text-xs text-slate-500 block mb-1">
+          <label className="text-xs text-slate-400 block mb-1">
             División de gastos compartidos
           </label>
           <input
@@ -123,9 +123,9 @@ export default function AjustesPage() {
             step="5"
             value={myShare}
             onChange={(e) => setMyShare(Number(e.target.value))}
-            className="w-full accent-emerald-600"
+            className="w-full accent-indigo-500"
           />
-          <p className="text-sm text-slate-600 text-center">
+          <p className="text-sm text-slate-300 text-center">
             Tú pagas <b>{myShare}%</b> · {partnerName} paga{" "}
             <b>{100 - myShare}%</b>
           </p>
@@ -133,15 +133,15 @@ export default function AjustesPage() {
         <button
           onClick={saveHousehold}
           disabled={savingHouse}
-          className="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-xl px-5 py-2 transition disabled:opacity-60"
+          className="bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium rounded-xl px-5 py-2 transition disabled:opacity-60"
         >
           {savingHouse ? "Guardando..." : "Guardar cambios"}
         </button>
       </section>
 
       {/* Miembros / invitación */}
-      <section className="bg-white rounded-2xl border border-slate-200 p-5 space-y-3">
-        <h2 className="font-semibold text-sm text-slate-700">👥 Miembros</h2>
+      <section className="bg-[#151923] rounded-2xl border border-white/5 p-5 space-y-3">
+        <h2 className="font-semibold text-sm text-slate-200">👥 Miembros</h2>
         <ul className="space-y-2">
           {members.map((m) => (
             <li key={m.id} className="flex items-center gap-3 text-sm">
@@ -153,7 +153,7 @@ export default function AjustesPage() {
                   className="w-8 h-8 rounded-full"
                 />
               ) : (
-                <span className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
+                <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                   👤
                 </span>
               )}
@@ -168,18 +168,18 @@ export default function AjustesPage() {
           ))}
         </ul>
         {members.length < 2 && (
-          <div className="bg-emerald-50 rounded-xl p-4">
-            <p className="text-sm text-emerald-900">
+          <div className="bg-indigo-500/10 rounded-xl p-4">
+            <p className="text-sm text-indigo-200">
               Invita a tu pareja: que entre con su Google y use este código en
               la pantalla de bienvenida.
             </p>
             <div className="flex items-center gap-2 mt-2">
-              <code className="bg-white border border-emerald-200 rounded-lg px-3 py-1.5 font-mono text-lg tracking-wider">
+              <code className="bg-black/30 border border-white/10 rounded-lg px-3 py-1.5 font-mono text-lg tracking-wider">
                 {household.invite_code}
               </code>
               <button
                 onClick={copyCode}
-                className="text-sm font-medium text-emerald-700 hover:underline"
+                className="text-sm font-medium text-emerald-400 hover:underline"
               >
                 {copied ? "¡Copiado! ✓" : "Copiar"}
               </button>
@@ -189,20 +189,20 @@ export default function AjustesPage() {
       </section>
 
       {/* Categorías */}
-      <section className="bg-white rounded-2xl border border-slate-200 p-5 space-y-3">
-        <h2 className="font-semibold text-sm text-slate-700">🏷️ Categorías</h2>
+      <section className="bg-[#151923] rounded-2xl border border-white/5 p-5 space-y-3">
+        <h2 className="font-semibold text-sm text-slate-200">🏷️ Categorías</h2>
         <ul className="flex flex-wrap gap-2">
           {categories.map((c) => (
             <li
               key={c.id}
-              className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-full pl-3 pr-1.5 py-1 text-sm"
+              className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full pl-3 pr-1.5 py-1 text-sm"
             >
               <span>
                 {c.icon} {c.name}
               </span>
               <button
                 onClick={() => removeCategory(c.id)}
-                className="text-slate-300 hover:text-red-500 w-5 h-5 flex items-center justify-center"
+                className="text-slate-300 hover:text-red-400 w-5 h-5 flex items-center justify-center"
                 aria-label={`Eliminar ${c.name}`}
               >
                 ✕
@@ -214,19 +214,19 @@ export default function AjustesPage() {
           <input
             value={newCat.icon}
             onChange={(e) => setNewCat({ ...newCat, icon: e.target.value })}
-            className="w-14 border border-slate-300 rounded-xl px-2 py-2 text-sm text-center"
+            className="w-14 border border-white/10 rounded-xl px-2 py-2 text-sm text-center"
             aria-label="Emoji"
           />
           <input
             value={newCat.name}
             onChange={(e) => setNewCat({ ...newCat, name: e.target.value })}
             placeholder="Nueva categoría"
-            className="flex-1 border border-slate-300 rounded-xl px-3 py-2 text-sm"
+            className="flex-1 border border-white/10 rounded-xl px-3 py-2 text-sm"
           />
           <button
             type="submit"
             disabled={savingCat}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-xl px-4 transition disabled:opacity-60"
+            className="bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium rounded-xl px-4 transition disabled:opacity-60"
           >
             Añadir
           </button>
@@ -234,10 +234,10 @@ export default function AjustesPage() {
       </section>
 
       {/* Sesión */}
-      <section className="bg-white rounded-2xl border border-slate-200 p-5">
+      <section className="bg-[#151923] rounded-2xl border border-white/5 p-5">
         <button
           onClick={signOut}
-          className="text-sm font-medium text-red-600 hover:underline"
+          className="text-sm font-medium text-red-400 hover:underline"
         >
           Cerrar sesión
         </button>

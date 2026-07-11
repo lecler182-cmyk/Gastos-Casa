@@ -36,7 +36,7 @@ create table public.categories (
   household_id uuid not null references public.households(id) on delete cascade,
   name text not null,
   icon text not null default '🧾',
-  color text not null default '#64748b',
+  color text not null default '#898781',
   created_at timestamptz not null default now()
 );
 
@@ -153,16 +153,16 @@ begin
   update profiles set household_id = v_id where id = auth.uid();
 
   insert into categories (household_id, name, icon, color) values
-    (v_id, 'Supermercado',   '🛒', '#22c55e'),
-    (v_id, 'Casa / Alquiler','🏠', '#3b82f6'),
-    (v_id, 'Servicios',      '💡', '#eab308'),
-    (v_id, 'Transporte',     '🚗', '#f97316'),
-    (v_id, 'Ocio',           '🎉', '#a855f7'),
-    (v_id, 'Restaurantes',   '🍽️', '#ef4444'),
-    (v_id, 'Salud',          '💊', '#14b8a6'),
-    (v_id, 'Ropa',           '👕', '#ec4899'),
-    (v_id, 'Suscripciones',  '📺', '#6366f1'),
-    (v_id, 'Otros',          '🧾', '#64748b');
+    (v_id, 'Supermercado',   '🛒', '#008300'),
+    (v_id, 'Casa / Alquiler','🏠', '#3987e5'),
+    (v_id, 'Servicios',      '💡', '#c98500'),
+    (v_id, 'Transporte',     '🚗', '#d95926'),
+    (v_id, 'Ocio',           '🎉', '#9085e9'),
+    (v_id, 'Restaurantes',   '🍽️', '#e66767'),
+    (v_id, 'Salud',          '💊', '#199e70'),
+    (v_id, 'Ropa',           '👕', '#d55181'),
+    (v_id, 'Suscripciones',  '📺', '#86b6ef'),
+    (v_id, 'Otros',          '🧾', '#898781');
 
   return v_id;
 end;

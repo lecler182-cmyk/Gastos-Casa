@@ -91,14 +91,14 @@ export default function RecurrentesPage() {
       <div className="flex items-start justify-between gap-3">
         <div>
           <h1 className="text-xl md:text-2xl font-bold">Gastos recurrentes</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-slate-400 mt-1">
             Alquiler, suscripciones, cuotas... se registran solos cada mes el
             día que elijas.
           </p>
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-xl px-4 py-2 transition shrink-0"
+          className="bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium rounded-xl px-4 py-2 transition shrink-0"
         >
           + Nuevo
         </button>
@@ -107,12 +107,12 @@ export default function RecurrentesPage() {
       {showForm && (
         <form
           onSubmit={save}
-          className="bg-white rounded-2xl border border-emerald-200 p-5 space-y-4"
+          className="bg-[#151923] rounded-2xl border border-indigo-400/30 p-5 space-y-4"
         >
           <h2 className="font-semibold text-sm">Nuevo gasto recurrente</h2>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs text-slate-500 block mb-1">
+              <label className="text-xs text-slate-400 block mb-1">
                 Monto *
               </label>
               <input
@@ -124,11 +124,11 @@ export default function RecurrentesPage() {
                 value={form.amount}
                 onChange={(e) => setForm({ ...form, amount: e.target.value })}
                 placeholder="0.00"
-                className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
               />
             </div>
             <div>
-              <label className="text-xs text-slate-500 block mb-1">
+              <label className="text-xs text-slate-400 block mb-1">
                 Día del mes (1–28)
               </label>
               <input
@@ -140,11 +140,11 @@ export default function RecurrentesPage() {
                 onChange={(e) =>
                   setForm({ ...form, day_of_month: e.target.value })
                 }
-                className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
               />
             </div>
             <div>
-              <label className="text-xs text-slate-500 block mb-1">
+              <label className="text-xs text-slate-400 block mb-1">
                 Categoría
               </label>
               <select
@@ -152,7 +152,7 @@ export default function RecurrentesPage() {
                 onChange={(e) =>
                   setForm({ ...form, category_id: e.target.value })
                 }
-                className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
               >
                 <option value="">Sin categoría</option>
                 {categories.map((c) => (
@@ -163,13 +163,13 @@ export default function RecurrentesPage() {
               </select>
             </div>
             <div>
-              <label className="text-xs text-slate-500 block mb-1">
+              <label className="text-xs text-slate-400 block mb-1">
                 Pagado por
               </label>
               <select
                 value={form.paid_by}
                 onChange={(e) => setForm({ ...form, paid_by: e.target.value })}
-                className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
               >
                 {members.map((m) => (
                   <option key={m.id} value={m.id}>
@@ -180,14 +180,14 @@ export default function RecurrentesPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 bg-slate-100 rounded-xl p-1">
+          <div className="grid grid-cols-2 gap-2 bg-white/5 rounded-xl p-1">
             <button
               type="button"
               onClick={() => setForm({ ...form, scope: "shared" })}
               className={`rounded-lg py-2 text-sm font-medium transition ${
                 form.scope === "shared"
-                  ? "bg-white shadow text-emerald-700"
-                  : "text-slate-500"
+                  ? "bg-white/15 text-white"
+                  : "text-slate-400"
               }`}
             >
               💑 Compartido
@@ -197,8 +197,8 @@ export default function RecurrentesPage() {
               onClick={() => setForm({ ...form, scope: "personal" })}
               className={`rounded-lg py-2 text-sm font-medium transition ${
                 form.scope === "personal"
-                  ? "bg-white shadow text-emerald-700"
-                  : "text-slate-500"
+                  ? "bg-white/15 text-white"
+                  : "text-slate-400"
               }`}
             >
               👤 Personal
@@ -206,13 +206,13 @@ export default function RecurrentesPage() {
           </div>
 
           <div>
-            <label className="text-xs text-slate-500 block mb-1">
+            <label className="text-xs text-slate-400 block mb-1">
               Nota (ej: Netflix, alquiler)
             </label>
             <input
               value={form.note}
               onChange={(e) => setForm({ ...form, note: e.target.value })}
-              className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+              className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
             />
           </div>
 
@@ -220,14 +220,14 @@ export default function RecurrentesPage() {
             <button
               type="button"
               onClick={() => setShowForm(false)}
-              className="text-sm text-slate-500 px-4 py-2 rounded-xl hover:bg-slate-50"
+              className="text-sm text-slate-400 px-4 py-2 rounded-xl hover:bg-white/5"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-xl px-5 py-2 transition disabled:opacity-60"
+              className="bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium rounded-xl px-5 py-2 transition disabled:opacity-60"
             >
               {saving ? "Guardando..." : "Guardar"}
             </button>
@@ -235,7 +235,7 @@ export default function RecurrentesPage() {
         </form>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100">
+      <div className="bg-[#151923] rounded-2xl border border-white/5 divide-y divide-white/5">
         {items.length === 0 ? (
           <p className="text-sm text-slate-400 py-10 text-center">
             Sin gastos recurrentes. Agrega el alquiler o tus suscripciones 📺
@@ -267,15 +267,15 @@ export default function RecurrentesPage() {
                   onClick={() => toggle(r)}
                   className={`text-xs font-medium rounded-lg px-2 py-1 ${
                     r.active
-                      ? "bg-emerald-50 text-emerald-700"
-                      : "bg-slate-100 text-slate-500"
+                      ? "bg-emerald-400/15 text-emerald-300"
+                      : "bg-white/10 text-slate-400"
                   }`}
                 >
                   {r.active ? "Activo" : "Pausado"}
                 </button>
                 <button
                   onClick={() => remove(r.id)}
-                  className="text-slate-300 hover:text-red-500 px-1"
+                  className="text-slate-300 hover:text-red-400 px-1"
                   aria-label="Eliminar"
                 >
                   ✕

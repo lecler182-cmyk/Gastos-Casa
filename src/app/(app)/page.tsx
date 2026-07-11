@@ -6,6 +6,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { supabase } from "@/lib/supabase/client";
 import { useApp } from "@/components/AppProvider";
 import { computeBalance } from "@/lib/balance";
+import { chartColor } from "@/lib/colors";
 import {
   currentMonth,
   fmtDate,
@@ -16,6 +17,8 @@ import {
   shiftMonth,
 } from "@/lib/format";
 import type { Budget, Expense, Income, Settlement } from "@/lib/types";
+
+const CARD = "#151923";
 
 export default function DashboardPage() {
   const { household, members, userId, categories } = useApp();
@@ -82,6 +85,7 @@ export default function DashboardPage() {
     () => incomes.reduce((s, i) => s + Number(i.amount), 0),
     [incomes]
   );
+  const ahorro = totalIngresos - totalGastos;
 
   const pieData = useMemo(() => {
     const byCat = new Map<string, number>();
@@ -95,7 +99,7 @@ export default function DashboardPage() {
         return {
           name: cat ? `${cat.icon} ${cat.name}` : "🧾 Sin categoría",
           value: Math.round(value * 100) / 100,
-          color: cat?.color ?? "#94a3b8",
+          color: chartColor(cat?.color),
         };
       })
       .sort((a, b) => b.value - a.value);
@@ -157,145 +161,158 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Selector de mes */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl md:text-2xl font-bold">Resumen</h1>
-        <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-xl px-1 py-1">
-          <button
-            onClick={() => setMonth(shiftMonth(month, -1))}
-            className="px-2.5 py-1 rounded-lg hover:bg-slate-100 text-slate-500"
-            aria-label="Mes anterior"
-          >
-            ‹
-          </button>
-          <span className="text-sm font-medium px-1 min-w-32 text-center">
-            {monthLabel(month)}
+    <div className="space-y-4">
+      {/* Hero: gasto del mes */}
+      <div className="rounded-3xl bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-800 p-6 md:p-8 relative overflow-hidden">
+        <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+        <div className="flex items-center justify-between relative">
+          <p className="text-sm font-medium text-white/70">Gastado en</p>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setMonth(shiftMonth(month, -1))}
+              className="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center transition"
+              aria-label="Mes anterior"
+            >
+              ‹
+            </button>
+            <span className="text-sm font-semibold text-white px-1 min-w-28 text-center">
+              {monthLabel(month)}
+            </span>
+            <button
+              onClick={() => setMonth(shiftMonth(month, 1))}
+              className="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center transition"
+              aria-label="Mes siguiente"
+            >
+              ›
+            </button>
+          </div>
+        </div>
+        <p className="tnum text-4xl md:text-5xl font-bold text-white tracking-tight mt-3 relative">
+          {loading ? "···" : fmtMoney(totalGastos, household.currency)}
+        </p>
+        <div className="flex gap-2 mt-5 relative">
+          <span className="tnum text-xs font-medium text-white bg-white/15 rounded-full px-3 py-1.5">
+            Ingresos{" "}
+            {loading ? "…" : `+${fmtMoney(totalIngresos, household.currency)}`}
           </span>
-          <button
-            onClick={() => setMonth(shiftMonth(month, 1))}
-            className="px-2.5 py-1 rounded-lg hover:bg-slate-100 text-slate-500"
-            aria-label="Mes siguiente"
-          >
-            ›
-          </button>
-        </div>
-      </div>
-
-      {/* Tarjetas de totales */}
-      <div className="grid grid-cols-3 gap-3">
-        <div className="bg-white rounded-2xl border border-slate-200 p-4">
-          <p className="text-xs text-slate-500">Gastos</p>
-          <p className="text-lg md:text-2xl font-bold text-red-600 mt-1">
-            {loading ? "…" : fmtMoney(totalGastos, household.currency)}
-          </p>
-        </div>
-        <div className="bg-white rounded-2xl border border-slate-200 p-4">
-          <p className="text-xs text-slate-500">Ingresos</p>
-          <p className="text-lg md:text-2xl font-bold text-emerald-600 mt-1">
-            {loading ? "…" : fmtMoney(totalIngresos, household.currency)}
-          </p>
-        </div>
-        <div className="bg-white rounded-2xl border border-slate-200 p-4">
-          <p className="text-xs text-slate-500">Ahorro</p>
-          <p
-            className={`text-lg md:text-2xl font-bold mt-1 ${
-              totalIngresos - totalGastos >= 0
-                ? "text-slate-900"
-                : "text-red-600"
+          <span
+            className={`tnum text-xs font-medium rounded-full px-3 py-1.5 ${
+              ahorro >= 0
+                ? "text-white bg-white/15"
+                : "text-red-100 bg-red-500/40"
             }`}
           >
-            {loading
-              ? "…"
-              : fmtMoney(totalIngresos - totalGastos, household.currency)}
-          </p>
+            Ahorro {loading ? "…" : fmtMoney(ahorro, household.currency)}
+          </span>
         </div>
       </div>
 
       {/* Cuentas en pareja */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5">
-        <h2 className="font-semibold text-sm text-slate-700 mb-2">
+      <div
+        className="rounded-2xl border border-white/5 p-5"
+        style={{ background: CARD }}
+      >
+        <h2 className="font-semibold text-sm text-slate-200 mb-2">
           💑 Cuentas en pareja
         </h2>
         {members.length < 2 ? (
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-400">
             Todavía estás solo/a en el hogar. Invita a tu pareja desde{" "}
-            <Link href="/ajustes" className="text-emerald-600 font-medium underline">
+            <Link
+              href="/ajustes"
+              className="text-indigo-300 font-medium underline"
+            >
               Ajustes
             </Link>
             .
           </p>
         ) : balance ? (
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm">
-              <b>{nameOf(balance.debtor.id)}</b> le debe{" "}
-              <b className="text-emerald-700">
+            <p className="text-sm text-slate-300">
+              <b className="text-white">{nameOf(balance.debtor.id)}</b> le debe{" "}
+              <b className="tnum text-emerald-400">
                 {fmtMoney(balance.amount, household.currency)}
               </b>{" "}
-              a <b>{nameOf(balance.creditor.id)}</b>
+              a <b className="text-white">{nameOf(balance.creditor.id)}</b>
             </p>
             <button
               onClick={settleUp}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-xl px-4 py-2 transition"
+              className="bg-white hover:bg-slate-200 text-slate-900 text-sm font-semibold rounded-full px-4 py-2 transition"
             >
               Saldar cuentas
             </button>
           </div>
         ) : (
-          <p className="text-sm text-slate-500">Están a mano 🎉</p>
+          <p className="text-sm text-slate-400">Están a mano 🎉</p>
         )}
       </div>
 
       {/* Gráfico por categoría */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5">
-        <h2 className="font-semibold text-sm text-slate-700 mb-3">
-          📊 Gastos por categoría — {monthLabel(month)}
+      <div
+        className="rounded-2xl border border-white/5 p-5"
+        style={{ background: CARD }}
+      >
+        <h2 className="font-semibold text-sm text-slate-200 mb-3">
+          Gastos por categoría
         </h2>
         {pieData.length === 0 ? (
-          <p className="text-sm text-slate-400 py-6 text-center">
+          <p className="text-sm text-slate-500 py-6 text-center">
             Sin gastos este mes. ¡Registra el primero desde 💸 Gastos!
           </p>
         ) : (
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <div className="w-48 h-48 shrink-0">
+          <div className="flex flex-col sm:flex-row items-center gap-5">
+            <div className="w-52 h-52 shrink-0 relative">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={pieData}
                     dataKey="value"
                     nameKey="name"
-                    innerRadius={45}
-                    outerRadius={85}
+                    innerRadius={62}
+                    outerRadius={90}
                     paddingAngle={2}
+                    stroke={CARD}
+                    strokeWidth={2}
                   >
                     {pieData.map((d, i) => (
                       <Cell key={i} fill={d.color} />
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(v) =>
-                      fmtMoney(Number(v), household.currency)
-                    }
+                    formatter={(v) => fmtMoney(Number(v), household.currency)}
+                    contentStyle={{
+                      background: "#0E1118",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      borderRadius: 12,
+                      color: "#F1F5F9",
+                    }}
+                    itemStyle={{ color: "#F1F5F9" }}
                   />
                 </PieChart>
               </ResponsiveContainer>
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <span className="text-[11px] text-slate-500">Total</span>
+                <span className="tnum text-lg font-bold text-white">
+                  {fmtMoney(totalGastos, household.currency)}
+                </span>
+              </div>
             </div>
-            <ul className="flex-1 w-full space-y-1.5">
+            <ul className="flex-1 w-full space-y-2">
               {pieData.map((d) => (
                 <li
                   key={d.name}
                   className="flex items-center justify-between text-sm"
                 >
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-2 text-slate-300">
                     <span
                       className="w-2.5 h-2.5 rounded-full inline-block"
                       style={{ background: d.color }}
                     />
                     {d.name}
                   </span>
-                  <span className="font-medium">
+                  <span className="tnum font-medium text-white">
                     {fmtMoney(d.value, household.currency)}
-                    <span className="text-slate-400 text-xs ml-2">
+                    <span className="tnum text-slate-500 text-xs ml-2">
                       {totalGastos > 0
                         ? `${Math.round((d.value / totalGastos) * 100)}%`
                         : ""}
@@ -310,37 +327,40 @@ export default function DashboardPage() {
 
       {/* Presupuestos */}
       {budgetRows.length > 0 && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-5">
-          <h2 className="font-semibold text-sm text-slate-700 mb-3">
+        <div
+          className="rounded-2xl border border-white/5 p-5"
+          style={{ background: CARD }}
+        >
+          <h2 className="font-semibold text-sm text-slate-200 mb-3">
             🎯 Presupuestos del mes
           </h2>
           <div className="space-y-3">
             {budgetRows.map((b) => (
               <div key={b.id}>
                 <div className="flex justify-between text-sm mb-1">
-                  <span>{b.label}</span>
+                  <span className="text-slate-300">{b.label}</span>
                   <span
-                    className={
+                    className={`tnum ${
                       b.spent > b.limit
-                        ? "text-red-600 font-semibold"
+                        ? "text-red-400 font-semibold"
                         : b.pct >= 80
-                          ? "text-amber-600 font-medium"
-                          : "text-slate-500"
-                    }
+                          ? "text-amber-400 font-medium"
+                          : "text-slate-400"
+                    }`}
                   >
                     {fmtMoney(b.spent, household.currency)} /{" "}
                     {fmtMoney(b.limit, household.currency)}
                     {b.spent > b.limit && " ⚠️"}
                   </span>
                 </div>
-                <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all ${
                       b.spent > b.limit
                         ? "bg-red-500"
                         : b.pct >= 80
                           ? "bg-amber-400"
-                          : "bg-emerald-500"
+                          : "bg-emerald-400"
                     }`}
                     style={{ width: `${b.pct}%` }}
                   />
@@ -352,40 +372,45 @@ export default function DashboardPage() {
       )}
 
       {/* Últimos movimientos */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5">
+      <div
+        className="rounded-2xl border border-white/5 p-5"
+        style={{ background: CARD }}
+      >
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-semibold text-sm text-slate-700">
+          <h2 className="font-semibold text-sm text-slate-200">
             🕐 Últimos movimientos
           </h2>
           <Link
             href="/gastos"
-            className="text-xs text-emerald-600 font-medium hover:underline"
+            className="text-xs text-indigo-300 font-medium hover:underline"
           >
             Ver todos →
           </Link>
         </div>
         {expenses.length === 0 ? (
-          <p className="text-sm text-slate-400 py-4 text-center">
+          <p className="text-sm text-slate-500 py-4 text-center">
             Nada por aquí todavía.
           </p>
         ) : (
-          <ul className="divide-y divide-slate-100">
+          <ul className="divide-y divide-white/5">
             {expenses.slice(0, 5).map((e) => {
               const cat = categories.find((c) => c.id === e.category_id);
               return (
                 <li key={e.id} className="flex items-center gap-3 py-2.5">
-                  <span className="text-xl">{cat?.icon ?? "🧾"}</span>
+                  <span className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-lg">
+                    {cat?.icon ?? "🧾"}
+                  </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">
+                    <p className="text-sm font-medium text-white truncate">
                       {e.note || cat?.name || "Gasto"}
                     </p>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs text-slate-500">
                       {fmtDate(e.date)} · {nameOf(e.paid_by)} ·{" "}
                       {e.scope === "shared" ? "Compartido" : "Personal"}
                     </p>
                   </div>
-                  <span className="text-sm font-semibold">
-                    {fmtMoney(Number(e.amount), household.currency)}
+                  <span className="tnum text-sm font-semibold text-white">
+                    -{fmtMoney(Number(e.amount), household.currency)}
                   </span>
                 </li>
               );

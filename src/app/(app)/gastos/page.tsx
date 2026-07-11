@@ -127,10 +127,10 @@ export default function GastosPage() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <h1 className="text-xl md:text-2xl font-bold">Gastos</h1>
-        <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-xl px-1 py-1">
+        <div className="flex items-center gap-1 bg-[#151923] border border-white/5 rounded-xl px-1 py-1">
           <button
             onClick={() => setMonth(shiftMonth(month, -1))}
-            className="px-2.5 py-1 rounded-lg hover:bg-slate-100 text-slate-500"
+            className="px-2.5 py-1 rounded-lg hover:bg-white/10 text-slate-400"
           >
             ‹
           </button>
@@ -139,7 +139,7 @@ export default function GastosPage() {
           </span>
           <button
             onClick={() => setMonth(shiftMonth(month, 1))}
-            className="px-2.5 py-1 rounded-lg hover:bg-slate-100 text-slate-500"
+            className="px-2.5 py-1 rounded-lg hover:bg-white/10 text-slate-400"
           >
             ›
           </button>
@@ -147,12 +147,12 @@ export default function GastosPage() {
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-sm text-slate-500">
-          Total: <b className="text-slate-900">{fmtMoney(total, household.currency)}</b>
+        <p className="text-sm text-slate-400">
+          Total: <b className="text-white">{fmtMoney(total, household.currency)}</b>
         </p>
         <button
           onClick={startNew}
-          className="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-xl px-4 py-2 transition"
+          className="bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium rounded-xl px-4 py-2 transition"
         >
           + Nuevo gasto
         </button>
@@ -161,7 +161,7 @@ export default function GastosPage() {
       {showForm && (
         <form
           onSubmit={save}
-          className="bg-white rounded-2xl border border-emerald-200 p-5 space-y-4"
+          className="bg-[#151923] rounded-2xl border border-indigo-400/30 p-5 space-y-4"
         >
           <h2 className="font-semibold text-sm">
             {form.id ? "Editar gasto" : "Nuevo gasto"}
@@ -169,7 +169,7 @@ export default function GastosPage() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs text-slate-500 block mb-1">
+              <label className="text-xs text-slate-400 block mb-1">
                 Monto *
               </label>
               <input
@@ -181,20 +181,20 @@ export default function GastosPage() {
                 value={form.amount}
                 onChange={(e) => setForm({ ...form, amount: e.target.value })}
                 placeholder="0.00"
-                className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
               />
             </div>
             <div>
-              <label className="text-xs text-slate-500 block mb-1">Fecha</label>
+              <label className="text-xs text-slate-400 block mb-1">Fecha</label>
               <input
                 type="date"
                 value={form.date}
                 onChange={(e) => setForm({ ...form, date: e.target.value })}
-                className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
               />
             </div>
             <div>
-              <label className="text-xs text-slate-500 block mb-1">
+              <label className="text-xs text-slate-400 block mb-1">
                 Categoría
               </label>
               <select
@@ -202,7 +202,7 @@ export default function GastosPage() {
                 onChange={(e) =>
                   setForm({ ...form, category_id: e.target.value })
                 }
-                className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
               >
                 {categories.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -212,13 +212,13 @@ export default function GastosPage() {
               </select>
             </div>
             <div>
-              <label className="text-xs text-slate-500 block mb-1">
+              <label className="text-xs text-slate-400 block mb-1">
                 Pagado por
               </label>
               <select
                 value={form.paid_by}
                 onChange={(e) => setForm({ ...form, paid_by: e.target.value })}
-                className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
               >
                 {members.map((m) => (
                   <option key={m.id} value={m.id}>
@@ -230,15 +230,15 @@ export default function GastosPage() {
           </div>
 
           <div>
-            <label className="text-xs text-slate-500 block mb-1">Tipo</label>
-            <div className="grid grid-cols-2 gap-2 bg-slate-100 rounded-xl p-1">
+            <label className="text-xs text-slate-400 block mb-1">Tipo</label>
+            <div className="grid grid-cols-2 gap-2 bg-white/5 rounded-xl p-1">
               <button
                 type="button"
                 onClick={() => setForm({ ...form, scope: "shared" })}
                 className={`rounded-lg py-2 text-sm font-medium transition ${
                   form.scope === "shared"
-                    ? "bg-white shadow text-emerald-700"
-                    : "text-slate-500"
+                    ? "bg-white/15 text-white"
+                    : "text-slate-400"
                 }`}
               >
                 💑 Compartido
@@ -248,8 +248,8 @@ export default function GastosPage() {
                 onClick={() => setForm({ ...form, scope: "personal" })}
                 className={`rounded-lg py-2 text-sm font-medium transition ${
                   form.scope === "personal"
-                    ? "bg-white shadow text-emerald-700"
-                    : "text-slate-500"
+                    ? "bg-white/15 text-white"
+                    : "text-slate-400"
                 }`}
               >
                 👤 Personal
@@ -262,14 +262,14 @@ export default function GastosPage() {
           </div>
 
           <div>
-            <label className="text-xs text-slate-500 block mb-1">
+            <label className="text-xs text-slate-400 block mb-1">
               Nota (opcional)
             </label>
             <input
               value={form.note}
               onChange={(e) => setForm({ ...form, note: e.target.value })}
               placeholder="ej: compra semanal"
-              className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm"
+              className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm"
             />
           </div>
 
@@ -277,14 +277,14 @@ export default function GastosPage() {
             <button
               type="button"
               onClick={() => setShowForm(false)}
-              className="text-sm text-slate-500 px-4 py-2 rounded-xl hover:bg-slate-50"
+              className="text-sm text-slate-400 px-4 py-2 rounded-xl hover:bg-white/5"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-xl px-5 py-2 transition disabled:opacity-60"
+              className="bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium rounded-xl px-5 py-2 transition disabled:opacity-60"
             >
               {saving ? "Guardando..." : "Guardar"}
             </button>
@@ -292,7 +292,7 @@ export default function GastosPage() {
         </form>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100">
+      <div className="bg-[#151923] rounded-2xl border border-white/5 divide-y divide-white/5">
         {expenses.length === 0 ? (
           <p className="text-sm text-slate-400 py-10 text-center">
             Sin gastos en {monthLabel(month).toLowerCase()}.
@@ -320,7 +320,7 @@ export default function GastosPage() {
                 </span>
                 <button
                   onClick={() => remove(e.id)}
-                  className="text-slate-300 hover:text-red-500 px-1"
+                  className="text-slate-300 hover:text-red-400 px-1"
                   aria-label="Eliminar"
                 >
                   ✕

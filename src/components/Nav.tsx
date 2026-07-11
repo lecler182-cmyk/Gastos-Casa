@@ -18,10 +18,12 @@ export default function Nav() {
   return (
     <>
       {/* Barra lateral en escritorio */}
-      <aside className="hidden md:flex flex-col w-56 shrink-0 border-r border-slate-200 bg-white min-h-screen sticky top-0 p-4">
+      <aside className="hidden md:flex flex-col w-56 shrink-0 border-r border-white/5 bg-[#0D1019] min-h-screen sticky top-0 p-4">
         <div className="flex items-center gap-2 px-2 py-3 mb-4">
           <span className="text-2xl">💰</span>
-          <span className="font-bold text-slate-900">Gastos Casa</span>
+          <span className="font-bold text-white tracking-tight">
+            Gastos Casa
+          </span>
         </div>
         <nav className="space-y-1">
           {items.map((it) => (
@@ -30,8 +32,8 @@ export default function Nav() {
               href={it.href}
               className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
                 pathname === it.href
-                  ? "bg-emerald-50 text-emerald-700"
-                  : "text-slate-600 hover:bg-slate-50"
+                  ? "bg-white/10 text-white"
+                  : "text-slate-400 hover:bg-white/5 hover:text-slate-200"
               }`}
             >
               <span>{it.icon}</span>
@@ -42,13 +44,13 @@ export default function Nav() {
       </aside>
 
       {/* Barra inferior en móvil */}
-      <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-slate-200 flex justify-around pb-[env(safe-area-inset-bottom)]">
+      <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0D1019]/90 backdrop-blur-md border-t border-white/5 flex justify-around pb-[env(safe-area-inset-bottom)]">
         {items.map((it) => (
           <Link
             key={it.href}
             href={it.href}
             className={`flex flex-col items-center gap-0.5 py-2 px-1 text-[10px] font-medium ${
-              pathname === it.href ? "text-emerald-600" : "text-slate-400"
+              pathname === it.href ? "text-white" : "text-slate-500"
             }`}
           >
             <span className="text-lg leading-none">{it.icon}</span>
