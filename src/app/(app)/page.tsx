@@ -164,7 +164,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-5">
       {/* Hero: gasto del mes */}
-      <div className="rounded-3xl bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-800 p-6 md:p-8 relative overflow-hidden">
+      <div className="rise rounded-3xl bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-800 p-6 md:p-8 relative overflow-hidden">
         <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-white/10 blur-2xl pointer-events-none" />
         <div className="flex items-center justify-between relative">
           <p className="text-sm font-medium text-white/70">Gastado en</p>
@@ -188,7 +188,10 @@ export default function DashboardPage() {
             </button>
           </div>
         </div>
-        <p className="tnum display text-5xl md:text-6xl font-semibold text-white mt-4 relative">
+        <p
+          key={`${month}-${loading}`}
+          className="rise tnum display text-5xl md:text-6xl font-semibold text-white mt-4 relative"
+        >
           {loading ? "···" : fmtMoney(totalGastos, household.currency)}
         </p>
         <div className="flex gap-2 mt-5 relative">
@@ -210,7 +213,7 @@ export default function DashboardPage() {
 
       {/* Cuentas en pareja */}
       <div
-        className="rounded-3xl border border-white/5 p-6"
+        className="rise rise-1 rounded-3xl border border-white/5 p-6"
         style={{ background: CARD }}
       >
         <h2 className="font-semibold text-sm text-slate-200 mb-2">
@@ -250,7 +253,7 @@ export default function DashboardPage() {
 
       {/* Gráfico por categoría */}
       <div
-        className="rounded-3xl border border-white/5 p-6"
+        className="rise rise-2 rounded-3xl border border-white/5 p-6"
         style={{ background: CARD }}
       >
         <h2 className="font-semibold text-sm text-slate-200 mb-3">
@@ -329,7 +332,7 @@ export default function DashboardPage() {
       {/* Presupuestos */}
       {budgetRows.length > 0 && (
         <div
-          className="rounded-3xl border border-white/5 p-6"
+          className="rise rise-3 rounded-3xl border border-white/5 p-6"
           style={{ background: CARD }}
         >
           <h2 className="font-semibold text-sm text-slate-200 mb-3">
@@ -356,7 +359,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all ${
+                    className={`grow h-full rounded-full transition-all ${
                       b.spent > b.limit
                         ? "bg-red-500"
                         : b.pct >= 80
@@ -374,7 +377,7 @@ export default function DashboardPage() {
 
       {/* Últimos movimientos */}
       <div
-        className="rounded-3xl border border-white/5 p-6"
+        className="rise rise-4 rounded-3xl border border-white/5 p-6"
         style={{ background: CARD }}
       >
         <div className="flex items-center justify-between mb-3">

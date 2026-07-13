@@ -141,7 +141,7 @@ export default function PresupuestosPage() {
                   </div>
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                     <div
-                      className={`h-full rounded-full ${
+                      className={`grow h-full rounded-full ${
                         spent > limit
                           ? "bg-red-500"
                           : pct >= 80
