@@ -14,7 +14,7 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: "Gastos Casa",
+  title: "Fliapp",
   description:
     "Gestión de gastos diarios, mensuales y cuentas compartidas en pareja",
 };

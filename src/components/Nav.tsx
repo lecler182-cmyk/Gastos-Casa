@@ -31,9 +31,7 @@ export default function Nav() {
       <aside className="hidden md:flex flex-col w-56 shrink-0 border-r border-white/5 bg-[#0D1019] min-h-screen sticky top-0 p-4">
         <div className="flex items-center gap-2.5 px-2 py-3 mb-4">
           <LogoMark size={30} />
-          <span className="font-bold text-white tracking-tight">
-            Gastos Casa
-          </span>
+          <span className="font-bold text-white tracking-tight">Fliapp</span>
         </div>
         <nav className="space-y-1">
           {items.map((it) => (

@@ -21,7 +21,7 @@ export default function LoginPage() {
         <div className="flex justify-center mb-4">
           <LogoMark size={56} />
         </div>
-        <h1 className="text-2xl font-bold text-white">Gastos Casa</h1>
+        <h1 className="text-2xl font-bold text-white">Fliapp</h1>
         <p className="text-slate-400 mt-2 mb-8 text-sm">
           Gastos diarios, presupuestos y cuentas compartidas en pareja
         </p>
