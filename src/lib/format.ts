@@ -6,6 +6,15 @@ export function fmtMoney(amount: number, currency: string) {
   }).format(amount);
 }
 
+/** Monto compacto sin decimales, para espacios pequeños ("45 €") */
+export function fmtMoneyShort(amount: number, currency: string) {
+  return new Intl.NumberFormat("es", {
+    style: "currency",
+    currency,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
 export function fmtDate(date: string) {
   return new Date(date + "T00:00:00").toLocaleDateString("es", {
     day: "numeric",

@@ -6,6 +6,7 @@ import {
   LayoutDashboard,
   Receipt,
   Wallet,
+  CalendarDays,
   Target,
   Repeat,
   Settings,
@@ -13,13 +14,34 @@ import {
 } from "lucide-react";
 import LogoMark from "./Logo";
 
-const items: { href: string; label: string; icon: LucideIcon }[] = [
-  { href: "/", label: "Inicio", icon: LayoutDashboard },
-  { href: "/gastos", label: "Gastos", icon: Receipt },
-  { href: "/ingresos", label: "Ingresos", icon: Wallet },
-  { href: "/presupuestos", label: "Presupuestos", icon: Target },
-  { href: "/recurrentes", label: "Recurrentes", icon: Repeat },
-  { href: "/ajustes", label: "Ajustes", icon: Settings },
+const items: {
+  href: string;
+  label: string;
+  short: string;
+  icon: LucideIcon;
+}[] = [
+  { href: "/", label: "Inicio", short: "Inicio", icon: LayoutDashboard },
+  { href: "/gastos", label: "Gastos", short: "Gastos", icon: Receipt },
+  { href: "/ingresos", label: "Ingresos", short: "Ingresos", icon: Wallet },
+  {
+    href: "/calendario",
+    label: "Calendario",
+    short: "Calend.",
+    icon: CalendarDays,
+  },
+  {
+    href: "/presupuestos",
+    label: "Presupuestos",
+    short: "Presup.",
+    icon: Target,
+  },
+  {
+    href: "/recurrentes",
+    label: "Recurrentes",
+    short: "Recurr.",
+    icon: Repeat,
+  },
+  { href: "/ajustes", label: "Ajustes", short: "Ajustes", icon: Settings },
 ];
 
 export default function Nav() {
@@ -57,12 +79,12 @@ export default function Nav() {
           <Link
             key={it.href}
             href={it.href}
-            className={`flex flex-col items-center gap-1 py-2 px-1 text-[10px] font-medium ${
+            className={`flex flex-col items-center gap-1 py-2 px-0.5 text-[9px] font-medium ${
               pathname === it.href ? "text-white" : "text-slate-500"
             }`}
           >
-            <it.icon size={19} strokeWidth={2} />
-            {it.label}
+            <it.icon size={18} strokeWidth={2} />
+            {it.short}
           </Link>
         ))}
       </nav>
