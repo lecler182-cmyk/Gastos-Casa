@@ -17,7 +17,14 @@ import {
   monthRange,
   shiftMonth,
 } from "@/lib/format";
-import type { Budget, Expense, Income, Settlement } from "@/lib/types";
+import { BellRing } from "lucide-react";
+import type {
+  Budget,
+  Expense,
+  Income,
+  RecurringExpense,
+  Settlement,
+} from "@/lib/types";
 
 const CARD = "#151923";
 
@@ -31,6 +38,7 @@ export default function DashboardPage() {
     { amount: number; paid_by: string }[]
   >([]);
   const [settlements, setSettlements] = useState<Settlement[]>([]);
+  const [recurring, setRecurring] = useState<RecurringExpense[]>([]);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
@@ -39,7 +47,8 @@ export default function DashboardPage() {
     await supabase.rpc("generate_recurring");
 
     const { start, end } = monthRange(month);
-    const [expRes, incRes, budRes, sharedRes, setRes] = await Promise.all([
+    const [expRes, incRes, budRes, sharedRes, setRes, recRes] =
+      await Promise.all([
       supabase
         .from("expenses")
         .select("*")
@@ -64,6 +73,11 @@ export default function DashboardPage() {
         .from("settlements")
         .select("*")
         .eq("household_id", household.id),
+      supabase
+        .from("recurring_expenses")
+        .select("*")
+        .eq("household_id", household.id)
+        .eq("active", true),
     ]);
 
     setExpenses((expRes.data ?? []) as Expense[]);
@@ -71,6 +85,7 @@ export default function DashboardPage() {
     setBudgets((budRes.data ?? []) as Budget[]);
     setSharedAll(sharedRes.data ?? []);
     setSettlements((setRes.data ?? []) as Settlement[]);
+    setRecurring((recRes.data ?? []) as RecurringExpense[]);
     setLoading(false);
   }, [month, household.id]);
 
@@ -110,6 +125,25 @@ export default function DashboardPage() {
     () => computeBalance(household, members, sharedAll, settlements),
     [household, members, sharedAll, settlements]
   );
+
+  // pagos recurrentes que caen en los próximos 5 días (independiente del mes que mires)
+  const upcoming = useMemo(() => {
+    const hoy = new Date();
+    const diaHoy = hoy.getDate();
+    const diasDelMes = new Date(
+      hoy.getFullYear(),
+      hoy.getMonth() + 1,
+      0
+    ).getDate();
+    return recurring
+      .map((r) => {
+        let delta = r.day_of_month - diaHoy;
+        if (delta < 0) delta += diasDelMes;
+        return { ...r, delta };
+      })
+      .filter((r) => r.delta > 0 && r.delta <= 5)
+      .sort((a, b) => a.delta - b.delta);
+  }, [recurring]);
 
   const budgetRows = useMemo(
     () =>
@@ -210,6 +244,40 @@ export default function DashboardPage() {
           </span>
         </div>
       </div>
+
+      {/* Próximos pagos recurrentes */}
+      {upcoming.length > 0 && (
+        <div className="rise rise-1 rounded-3xl border border-violet-400/20 bg-violet-500/10 p-5">
+          <div className="flex items-center gap-2 mb-2">
+            <BellRing size={15} className="text-violet-300" />
+            <h2 className="font-semibold text-sm text-violet-200">
+              Próximos pagos
+            </h2>
+          </div>
+          <ul className="space-y-1.5">
+            {upcoming.slice(0, 3).map((r) => {
+              const cat = categories.find((c) => c.id === r.category_id);
+              return (
+                <li
+                  key={r.id}
+                  className="flex items-center justify-between text-sm"
+                >
+                  <span className="text-slate-300 truncate">
+                    {r.note || cat?.name || "Pago recurrente"}
+                    <span className="text-slate-500">
+                      {" "}
+                      · {r.delta === 1 ? "mañana" : `en ${r.delta} días`}
+                    </span>
+                  </span>
+                  <span className="tnum font-semibold text-white ml-3">
+                    {fmtMoney(Number(r.amount), household.currency)}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
 
       {/* Cuentas en pareja */}
       <div
