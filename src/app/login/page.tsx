@@ -42,11 +42,14 @@ export default function LoginPage() {
     setLoading(true);
 
     if (mode === "signup") {
+      // idioma del navegador, para que el correo de bienvenida llegue traducido
+      const nav = navigator.language.toLowerCase();
+      const lang = nav.startsWith("es") ? "es" : nav.startsWith("it") ? "it" : "en";
       const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
         password,
         options: {
-          data: { full_name: name.trim() },
+          data: { full_name: name.trim(), lang },
           emailRedirectTo: `${window.location.origin}/auth/callback`,
         },
       });
