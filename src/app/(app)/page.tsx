@@ -5,6 +5,7 @@ import Link from "next/link";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { supabase } from "@/lib/supabase/client";
 import { useApp } from "@/components/AppProvider";
+import ShareApp from "@/components/ShareApp";
 import { computeBalance } from "@/lib/balance";
 import { chartColor } from "@/lib/colors";
 import { CategoryIcon } from "@/lib/icons";
@@ -515,6 +516,9 @@ export default function DashboardPage() {
           </ul>
         )}
       </div>
+
+      {/* Compartir la app */}
+      <ShareApp />
     </div>
   );
 }
