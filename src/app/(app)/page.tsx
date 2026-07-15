@@ -17,7 +17,7 @@ import {
   monthRange,
   shiftMonth,
 } from "@/lib/format";
-import { BellRing } from "lucide-react";
+import { BellRing, Eye, EyeOff } from "lucide-react";
 import type {
   Budget,
   Expense,
@@ -40,6 +40,20 @@ export default function DashboardPage() {
   const [settlements, setSettlements] = useState<Settlement[]>([]);
   const [recurring, setRecurring] = useState<RecurringExpense[]>([]);
   const [loading, setLoading] = useState(true);
+  const [hideAmounts, setHideAmounts] = useState(false);
+
+  useEffect(() => {
+    setHideAmounts(localStorage.getItem("fliapp-ocultar-montos") === "1");
+  }, []);
+
+  function toggleHide() {
+    const v = !hideAmounts;
+    setHideAmounts(v);
+    localStorage.setItem("fliapp-ocultar-montos", v ? "1" : "0");
+  }
+
+  // oculta el monto si el modo privado está activo
+  const priv = (s: string) => (hideAmounts ? "•••••" : s);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -201,7 +215,16 @@ export default function DashboardPage() {
       <div className="rise rounded-3xl bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-800 p-6 md:p-8 relative overflow-hidden">
         <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-white/10 blur-2xl pointer-events-none" />
         <div className="flex items-center justify-between relative">
-          <p className="text-sm font-medium text-white/70">Gastado en</p>
+          <div className="flex items-center gap-2">
+            <p className="text-sm font-medium text-white/70">Gastado en</p>
+            <button
+              onClick={toggleHide}
+              className="text-white/60 hover:text-white transition"
+              aria-label={hideAmounts ? "Mostrar montos" : "Ocultar montos"}
+            >
+              {hideAmounts ? <EyeOff size={15} /> : <Eye size={15} />}
+            </button>
+          </div>
           <div className="flex items-center gap-1">
             <button
               onClick={() => setMonth(shiftMonth(month, -1))}
@@ -223,15 +246,19 @@ export default function DashboardPage() {
           </div>
         </div>
         <p
-          key={`${month}-${loading}`}
-          className="rise tnum display text-5xl md:text-6xl font-semibold text-white mt-4 relative"
+          key={`${month}-${loading}-${hideAmounts}`}
+          onClick={toggleHide}
+          title="Toca para ocultar o mostrar los montos"
+          className="rise tnum display text-5xl md:text-6xl font-semibold text-white mt-4 relative cursor-pointer select-none"
         >
-          {loading ? "···" : fmtMoney(totalGastos, household.currency)}
+          {loading ? "···" : priv(fmtMoney(totalGastos, household.currency))}
         </p>
         <div className="flex gap-2 mt-5 relative">
           <span className="tnum text-xs font-medium text-white bg-white/15 rounded-full px-3 py-1.5">
             Ingresos{" "}
-            {loading ? "…" : `+${fmtMoney(totalIngresos, household.currency)}`}
+            {loading
+              ? "…"
+              : priv(`+${fmtMoney(totalIngresos, household.currency)}`)}
           </span>
           <span
             className={`tnum text-xs font-medium rounded-full px-3 py-1.5 ${
@@ -240,7 +267,7 @@ export default function DashboardPage() {
                 : "text-red-100 bg-red-500/40"
             }`}
           >
-            Ahorro {loading ? "…" : fmtMoney(ahorro, household.currency)}
+            Ahorro {loading ? "…" : priv(fmtMoney(ahorro, household.currency))}
           </span>
         </div>
       </div>
