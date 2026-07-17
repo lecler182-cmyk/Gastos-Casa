@@ -33,10 +33,10 @@ export default function OnboardingPage() {
     <main className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-[#131A2C] to-[#0A0D14]">
       <div className="w-full max-w-md bg-[#151923] border border-white/10 rounded-3xl shadow-2xl p-8">
         <h1 className="text-xl font-bold text-white text-center">
-          Configura vuestro hogar
+          Configura tu hogar
         </h1>
         <p className="text-slate-400 text-sm text-center mt-2 mb-6">
-          Crea vuestro hogar, o únete al que ya creó tu pareja con su código.
+          Crea tu hogar, o únete al que ya creó tu pareja con su código.
         </p>
 
         <div className="grid grid-cols-2 gap-2 mb-6 bg-white/5 rounded-xl p-1">

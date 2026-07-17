@@ -22,12 +22,12 @@ const BENEFITS = [
   {
     icon: Scale,
     title: "Quién le debe a quién, automático",
-    text: "Cada gasto se marca compartido o personal y Fliapp calcula el saldo entre los dos. Saldad cuentas con un toque.",
+    text: "Cada gasto se marca compartido o personal y Fliapp calcula el saldo entre los dos. Salden cuentas con un toque.",
   },
   {
     icon: Target,
     title: "Presupuestos que avisan",
-    text: "Límite mensual por categoría, con alerta al 80% y cuando os pasáis.",
+    text: "Límite mensual por categoría, con alerta al 80% y cuando se pasan.",
   },
   {
     icon: Repeat,
@@ -36,7 +36,7 @@ const BENEFITS = [
   },
   {
     icon: CalendarDays,
-    title: "Vuestro mes, de un vistazo",
+    title: "Tu mes, de un vistazo",
     text: "Gráficos por categoría y un calendario que muestra qué días se va el dinero.",
   },
 ];
@@ -159,7 +159,7 @@ export default function LoginPage() {
           </ul>
 
           <p className="hidden md:block text-xs text-slate-500 mt-8">
-            Gratis · Sin anuncios · Vuestros datos son solo vuestros
+            Gratis · Sin anuncios · Tus datos son solo tuyos
           </p>
         </section>
 
@@ -285,7 +285,7 @@ export default function LoginPage() {
               </li>
             ))}
             <p className="text-xs text-slate-500 pt-2">
-              Gratis · Sin anuncios · Vuestros datos son solo vuestros
+              Gratis · Sin anuncios · Tus datos son solo tuyos
             </p>
           </ul>
         </section>

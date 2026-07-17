@@ -41,7 +41,7 @@ function buildEmail(
 
   return `
   <div style="font-family: Arial, Helvetica, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px 24px; color: #1e293b;">
-    <h1 style="font-size: 20px; margin: 0 0 8px;">Mañana ${items.length === 1 ? "tenéis un pago" : `tenéis ${items.length} pagos`} 🔔</h1>
+    <h1 style="font-size: 20px; margin: 0 0 8px;">Mañana ${items.length === 1 ? "tienen un pago" : `tienen ${items.length} pagos`} 🔔</h1>
     <p style="font-size: 15px; line-height: 1.6; color: #475569;">
       Hola ${firstName}, recordatorio de Fliapp: ${items.length === 1 ? "este pago recurrente vence" : "estos pagos recurrentes vencen"} mañana.
     </p>
@@ -58,7 +58,7 @@ function buildEmail(
       </a>
     </p>
     <p style="font-size: 12px; color: #94a3b8;">
-      Recibes este aviso porque tenéis pagos recurrentes activos en Fliapp.
+      Recibes este aviso porque tienen pagos recurrentes activos en Fliapp.
       Puedes pausarlos o eliminarlos desde la sección Recurrentes de la app.
     </p>
   </div>`;
@@ -141,7 +141,7 @@ export async function GET(request: Request) {
         subject:
           items.length === 1
             ? `🔔 Mañana: ${items[0].note || items[0].category?.name || "pago recurrente"} (${fmtMoney(Number(items[0].amount), currency)})`
-            : `🔔 Mañana tenéis ${items.length} pagos recurrentes`,
+            : `🔔 Mañana tienen ${items.length} pagos recurrentes`,
         htmlContent: buildEmail(firstName, items, currency),
       }),
     });

@@ -239,7 +239,7 @@ export default function RecurrentesPage() {
       <div className="bg-[#151923] rounded-3xl border border-white/5 divide-y divide-white/5">
         {items.length === 0 ? (
           <p className="text-sm text-slate-400 py-10 text-center">
-            Sin gastos recurrentes. Añade el alquiler o vuestras suscripciones.
+            Sin gastos recurrentes. Agrega el alquiler o tus suscripciones.
           </p>
         ) : (
           items.map((r) => {

@@ -35,10 +35,10 @@ export default function ShareApp() {
   return (
     <div className="rise rise-5 rounded-3xl border border-white/5 p-6 bg-[#151923]">
       <h2 className="font-semibold text-sm text-slate-200 mb-1">
-        ¿Os está sirviendo Fliapp?
+        ¿Te está sirviendo Fliapp?
       </h2>
       <p className="text-sm text-slate-400 mb-4">
-        Compártela con otra pareja o con tus amigos — es gratis.
+        Compartila con otra pareja o con tus amigos — es gratis.
       </p>
       <div className="flex flex-wrap gap-2">
         <button
